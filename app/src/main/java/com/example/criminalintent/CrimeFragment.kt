@@ -94,10 +94,18 @@ class  CrimeFragment: Fragment() {
 
     }
 
-    public fun updateUI(){
+    override fun onStop() {
+        super.onStop()
+        crimeDetailViewModel.saveCrime(crime)
+    }
+
+    private fun updateUI(){
         titleField.setText(crime.title)
         dateButton.text = crime.date.toString()
-        solvedCheckBox.isChecked = crime.isSolved
+        solvedCheckBox.apply {
+            isChecked = crime.isSolved
+            jumpDrawablesToCurrentState()
+        }
     }
 
     companion object {
